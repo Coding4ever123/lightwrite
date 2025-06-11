@@ -1,12 +1,20 @@
 {
-    "name": "quickhtml",
+    "name": "lightwrite",
     "version": "1.0.0",
     "main": "dist/main",
     "scripts": {
         "build": "webpack"
     },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Coding4ever123/quick-html.git"
+    },
     "types": "index.d.ts",
     "author": "Coding4ever123",
     "license": "MIT",
-    "description": "A lightweight HTML element builder"
+    "description": "A lightweight HTML element builder",
+    "keywords": [
+        "HTML",
+        "Dom"
+    ]
 }

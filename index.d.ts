@@ -7,24 +7,19 @@ declare class HTMLType {
     [Symbol.for("Type")]: "HTML";
 }
 
-interface qh {
-    /**
-     *
-     * @returns
-     */
-    (tagName: string): QHElement;
-
+interface lw {
+    (tagName: string): LWElement;
     text(value: string): TextType;
     html(value: string): HTMLType;
     as: {
-        (element: QHElement, type: "string"): string;
-        (element: QHElement, type: "element"): HTMLElement;
-        string(element: QHElement): string;
-        element(element: QHElement): HTMLElement;
+        (element: LWElement, type: "string"): string;
+        (element: LWElement, type: "element"): HTMLElement;
+        string(element: LWElement): string;
+        element(element: LWElement): HTMLElement;
     };
 }
 
-interface QHElement {
+interface LWElement {
     /**
      * This is used for setting the an attribute of that element.
      * If value is undefined it will remove The attribute.
@@ -33,6 +28,6 @@ interface QHElement {
      */
     [key: string]: (value?: string) => this;
 }
-declare const qh: qh;
+declare const lw: lw;
 
-export = qh;
+export = lw;

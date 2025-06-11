@@ -20,7 +20,7 @@ function GetCorrectType(classParam) {
     if (classParam[Symbol.for("Type")] === "TEXT") return "text";
     if (classParam[Symbol.for("Type")] === "HTML") return "html";
     if (classParam instanceof HTMLElement) return "HTMLElement";
-    if (typeof classParam.toElement === "function") return "QuickHTML";
+    if (typeof classParam.toElement === "function") return "LightWrite";
     return "string";
 }
 
@@ -45,7 +45,7 @@ module.exports = (elementTagName) => {
                     break;
                 case "HTMLElement":
                     element.insertAdjacentElement("beforeend", content);
-                case "QuickHTML":
+                case "LightWrite":
                     element.insertAdjacentElement(
                         "beforeend",
                         module.exports.as(content, "element")
