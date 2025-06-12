@@ -1,20 +1,25 @@
 {
     "name": "lightwrite",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "main": "dist/main",
     "scripts": {
         "build": "webpack"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Coding4ever123/quick-html.git"
+        "url": "git+https://github.com/Coding4ever123/lightwrite.git"
     },
-    "types": "index.d.ts",
+    "types": "./types/index.d.ts",
     "author": "Coding4ever123",
     "license": "MIT",
     "description": "A lightweight HTML element builder",
     "keywords": [
         "HTML",
         "Dom"
-    ]
+    ],
+    "devDependencies": {
+        "ts-loader": "^9.5.2",
+        "typescript": "^5.8.3",
+        "webpack": "^5.99.9"
+    }
 }

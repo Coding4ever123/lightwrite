@@ -9,16 +9,28 @@ import * as lw from "lightwrite";
 
 // or as String:
 
-lw.as.string(lw("div").class("loader spinner"));
+lw.as.string(
+    lw("div").class("greeting")(lw("p").class("greeting-text")("hello!"))
+);
+
+//"<div class="greeting"><p class="greeting-text">hello!</p></div>"
 
 // or as Element:
 
-lw.as.element(lw("div").class("loader spinner"));
+lw.as.element(
+    lw("div").class("greeting")(lw("p").class("greeting-text")("hello!"))
+);
+
+//<div class="greeting"><p class="greeting-text">hello!</p></div>
 ```
 
 # Api
 
 ## lw
+
+### lw(elementTagName: string): LWElement
+
+This will initialize a new LWElement
 
 ### lw.text(text: string): TextType
 
@@ -45,3 +57,9 @@ This will convert the LWElement to a HTMLElement
 ### [key: string]: (value?: string): this
 
 This will set the attribute [ key ] to value
+
+### LWElement(value: LWValue): this
+
+This will add the value as a child.
+
+## LWValue = TextType | HTMLType | string | HTMLElement | LWElement;

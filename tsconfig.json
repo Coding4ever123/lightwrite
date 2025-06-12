@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2020",
+        "lib": ["es2020", "DOM"],
+        "outDir": "out",
+        "rootDir": "src",
+        "skipLibCheck": true,
+        "declaration": true,
+        "declarationDir": "./types",
+        "stripInternal": true
+    },
+    "include": ["src"]
+}
