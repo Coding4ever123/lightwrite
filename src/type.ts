@@ -47,7 +47,7 @@ export interface LWElement {
      */
     (content: LWValue): LWElement;
 }
-interface type {
+interface LWExports {
     /**
      * This will initialize a new LWElement
      * @since v1.0.0
@@ -69,9 +69,9 @@ interface type {
      */
     as: as;
 }
-export default type;
+export default LWExports;
 declare global {
-    const lw: type;
+    const lw: LWExports;
 }
 
 interface as {
