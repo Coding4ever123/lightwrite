@@ -1,4 +1,7 @@
 src
 webpack.config.js
 node_modules
+tsconfig.json
+LICENSE
+
 
