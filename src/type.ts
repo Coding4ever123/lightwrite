@@ -47,8 +47,7 @@ export interface LWElement {
      */
     (content: LWValue): LWElement;
 }
-
-export default interface type {
+interface type {
     /**
      * This will initialize a new LWElement
      * @since v1.0.0
@@ -70,6 +69,11 @@ export default interface type {
      */
     as: as;
 }
+export default type;
+declare global {
+    const lw: type;
+}
+
 interface as {
     /**
      * This will convert the LWElement to a string
