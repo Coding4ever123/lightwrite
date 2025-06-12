@@ -1,7 +1,7 @@
 {
     "name": "lightwrite",
-    "version": "1.0.3",
-    "main": "dist/main",
+    "version": "1.0.4",
+    "main": "out/main",
     "scripts": {
         "build": "webpack"
     },
