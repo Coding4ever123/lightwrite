@@ -58,8 +58,12 @@ This will convert the LWElement to a HTMLElement
 
 This will set the attribute [ key ] to value
 
-### LWElement(value: LWValue): this
+### LWElement(content: LWValue[]): this
 
-This will add the value as a child.
+This will add multiple elements as a child.
+
+### LWElement(...content: LWValue[]): this
+
+This will add multiple elements as a child.
 
 ## LWValue = TextType | HTMLType | string | HTMLElement | LWElement;

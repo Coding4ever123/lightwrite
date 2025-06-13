@@ -45,7 +45,13 @@ export interface LWElement {
      * This will add the value as a child.
      * @since v1.0.0
      */
-    (content: LWValue): LWElement;
+    (content: LWValue[]): LWElement;
+
+    /**
+     * This will add multiple elements as a child.
+     * @since v1.0.9
+     */
+    (...content: LWValue[]): LWElement;
 }
 interface LWExports {
     /**

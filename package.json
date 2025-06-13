@@ -1,10 +1,11 @@
 {
     "name": "lightwrite",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "main": "out/main.js",
+    "funding": "https://github.com/Coding4ever123/lightwrite?sponsor=1",
     "scripts": {
         "build": "webpack",
-        "prepublish": "npm run build"
+        "prepublishOnly": "npm run build"
     },
     "repository": {
         "type": "git",
@@ -19,6 +20,7 @@
         "Dom"
     ],
     "devDependencies": {
+        "webpack-cli": "^6.0.1",
         "ts-loader": "^9.5.2",
         "typescript": "^5.8.3",
         "webpack": "^5.99.9"

@@ -1,44 +1,53 @@
 import * as t from "./type";
 
-/**@internal*/
-function GetCorrectType(classParam: t.LWValue) {
-    if (classParam[t.TYPE_SYMBOL] === "TEXT") return "text";
-    if (classParam[t.TYPE_SYMBOL] === "HTML") return "html";
-    if (classParam instanceof HTMLElement) return "HTMLElement";
-    if (classParam[t.ELEMENT_SYMBOL] instanceof HTMLElement)
-        return "LightWrite";
-    if (typeof classParam === "string") return "string";
-    return "unknown";
-}
-
 export = <t.default>Object.defineProperties(
     (elementTagName: string) => {
         let element = document.createElement(elementTagName);
         let proxy = new Proxy(
-            (content) => {
-                switch (GetCorrectType(content)) {
-                    case "text":
-                        element.insertAdjacentText("beforeend", content.value);
-                        break;
-                    case "string":
-                        element.insertAdjacentHTML("beforeend", content);
-                        break;
-                    case "html":
-                        element.insertAdjacentHTML("beforeend", content.value);
-                        break;
-                    case "HTMLElement":
-                        element.insertAdjacentElement("beforeend", content);
-                        break;
-                    case "LightWrite":
-                        element.insertAdjacentElement(
-                            "beforeend",
-                            content[t.ELEMENT_SYMBOL]
-                        );
-                        break;
-                    default:
-                        throw new TypeError("Invalid Parameter: content");
+            (...args) => {
+                function GetCorrectType(classParam: t.LWValue) {
+                    if (classParam[t.TYPE_SYMBOL] === "TEXT") return "text";
+                    if (classParam[t.TYPE_SYMBOL] === "HTML") return "html";
+                    if (classParam instanceof HTMLElement) return "HTMLElement";
+                    if (classParam[t.ELEMENT_SYMBOL] instanceof HTMLElement)
+                        return "LightWrite";
+                    if (typeof classParam === "string") return "string";
+                    return "unknown";
                 }
-
+                function handleElement(LWValue, index: number) {
+                    switch (GetCorrectType(LWValue)) {
+                        case "text":
+                            element.insertAdjacentText(
+                                "beforeend",
+                                LWValue.value
+                            );
+                            break;
+                        case "string":
+                            element.insertAdjacentHTML("beforeend", LWValue);
+                            break;
+                        case "html":
+                            element.insertAdjacentHTML(
+                                "beforeend",
+                                LWValue.value
+                            );
+                            break;
+                        case "HTMLElement":
+                            element.insertAdjacentElement("beforeend", LWValue);
+                            break;
+                        case "LightWrite":
+                            element.insertAdjacentElement(
+                                "beforeend",
+                                LWValue[t.ELEMENT_SYMBOL]
+                            );
+                            break;
+                        default:
+                            throw new TypeError(
+                                "Invalid Parameter at index: " + index
+                            );
+                    }
+                }
+                let content = Array.isArray(args[0]) ? args[0] : args;
+                content.forEach((x, i) => handleElement(x, i));
                 return proxy;
             },
             {
