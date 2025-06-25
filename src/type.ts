@@ -1,5 +1,3 @@
-//export default
-
 export const ELEMENT_SYMBOL: unique symbol = Symbol.for("LW_Output_Element");
 export const TYPE_SYMBOL: unique symbol = Symbol.for("Type");
 
@@ -30,16 +28,25 @@ export class HTMLType {
 }
 
 export type LWValue = TextType | HTMLType | string | HTMLElement | LWElement;
+
 export interface LWElement {
     /**
-     * This is used for setting the an attribute of that element.
-     * If value is undefined it will remove The attribute.
+     * This is used for setting an attribute of that element.
+     * If value is undefined it will remove the attribute.
      *
-     * Returns this to allow for function chaining
+     * Returns this to allow for function chaining.
      *
-     * @since v1.0.0
+     * Supports both template string and direct value usage.
+     *
+     * @example
+     * lw.elements.div.class`example`()
+     * lw.elements.div.class("example")
+     * @since v1.1.0
      */
-    [key: string]: (value?: string) => this;
+    [key: string]: {
+        (strings: string[], ...rest: any[]): LWElement;
+        (value: string): LWElement;
+    };
     [ELEMENT_SYMBOL]: HTMLElement;
     /**
      * This will add the value as a child.
@@ -52,7 +59,19 @@ export interface LWElement {
      * @since v1.0.9
      */
     (...content: LWValue[]): LWElement;
+    /**
+     * This will add the value as a child.
+     *
+     * **This is only supposed to be used with template strings**
+     * @since v1.1.0
+     */
+    (strings: string[], ...rest: any[]): this;
 }
+
+export interface Elements {
+    [key: string]: LWElement;
+}
+
 interface LWExports {
     /**
      * This will initialize a new LWElement
@@ -74,8 +93,13 @@ interface LWExports {
      * @since v1.0.0
      */
     as: as;
+    /**
+     * An Elements Registry
+     * @since 1.0.10
+     */
+    elements: Elements;
 }
-export default LWExports;
+export type LightWrite = LWExports;
 declare global {
     const lw: LWExports;
 }

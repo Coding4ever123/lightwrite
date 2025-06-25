@@ -1,6 +1,6 @@
 {
     "name": "lightwrite",
-    "version": "1.0.9",
+    "version": "1.1.0",
     "main": "out/main.js",
     "funding": "https://github.com/Coding4ever123/lightwrite?sponsor=1",
     "scripts": {
@@ -20,9 +20,9 @@
         "Dom"
     ],
     "devDependencies": {
-        "webpack-cli": "^6.0.1",
         "ts-loader": "^9.5.2",
         "typescript": "^5.8.3",
-        "webpack": "^5.99.9"
+        "webpack": "^5.99.9",
+        "webpack-cli": "^6.0.1"
     }
 }

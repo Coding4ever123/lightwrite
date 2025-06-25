@@ -1,6 +1,22 @@
 import * as t from "./type";
+/**@internal */
+function BuildStringFromTemplateArgs(strings: string[], ...rest: any[]) {
+    const result = [];
+    const length = Math.max(strings.length, rest.length);
 
-export = <t.default>Object.defineProperties(
+    for (let i = 0; i < length; i++) {
+        result.push(strings[i] ?? "", rest[i] ?? "");
+    }
+
+    return result.join("");
+}
+/**@internal */
+function AreValidTemplateArguments(arr1: any, arr2: any) {
+    if (!Array.isArray(arr1) || !Array.isArray(arr2)) return false;
+    return arr1.length === arr2.length || arr1.length === arr2.length + 1;
+}
+
+let LightWrite = <t.LightWrite>Object.defineProperties(
     (elementTagName: string) => {
         let element = document.createElement(elementTagName);
         let proxy = new Proxy(
@@ -46,17 +62,37 @@ export = <t.default>Object.defineProperties(
                             );
                     }
                 }
-                let content = Array.isArray(args[0]) ? args[0] : args;
+                let [val, ...rest] = args;
+                let content;
+                if (AreValidTemplateArguments(val, rest)) {
+                    if (!Array.isArray(val)) return;
+                    content = [BuildStringFromTemplateArgs(val, rest)];
+                } else {
+                    content = Array.isArray(args[0]) ? args[0] : args;
+                }
                 content.forEach((x, i) => handleElement(x, i));
                 return proxy;
             },
             {
                 get: (_, symbol) => {
                     if (symbol === t.ELEMENT_SYMBOL) return element;
-                    return (val: string) => {
+                    if (symbol === t.TYPE_SYMBOL) return;
+                    if (typeof symbol === "symbol")
+                        throw new TypeError(
+                            "Symbols are not allowed " + symbol.toString()
+                        );
+                    return (val: string | string[], ...args: any[]) => {
+                        if (AreValidTemplateArguments(val, args)) {
+                            if (!Array.isArray(val)) return;
+                            val = BuildStringFromTemplateArgs(val, args);
+                        }
                         if (val == undefined)
                             element.removeAttribute(symbol as string);
-                        else element.setAttribute(symbol as string, val);
+                        else
+                            element.setAttribute(
+                                symbol as string,
+                                val.toString()
+                            );
                         return proxy;
                     };
                 },
@@ -99,5 +135,26 @@ export = <t.default>Object.defineProperties(
                 }
             ),
         },
+        elements: {
+            value: new Proxy(
+                {},
+                {
+                    get(_, symbol) {
+                        if (typeof symbol === "symbol") {
+                            throw new TypeError("Invalid Argument at index: 0");
+                            return;
+                        }
+                        return LightWrite(symbol);
+                    },
+                }
+            ),
+        },
+    }
+);
+export = <t.LightWrite & { default: t.LightWrite }>Object.defineProperty(
+    LightWrite,
+    "default",
+    {
+        value: LightWrite,
     }
 );
