@@ -54,16 +54,28 @@ This will convert the LWElement to a HTMLElement
 
 ### lw.default: LightWrite
 
+This supports importing defaults
+
+### lw.elements: Elements
+
+This is an registry for elements
+
+## Elements
+
+### [key: string]: LWElement
+
+This is the equivalent of lw("_key_")
+
 ## LWElement
 
 ### [key: string]: (value?: string): this
 
-This will set the attribute [ key ] to value
+This will set the attribute _key_ to value
 If no parameter is passed it will remove that attribute
 
 ### [key: string]: (strings: string[], ...rest: any[]): this
 
-This will set the attribute [ key ] to value
+This will set the attribute _key_ to value
 If no parameter is passed it will remove that attribute
 
 **This is only supposed to be used with [Tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates)**
