@@ -52,11 +52,21 @@ This will convert the LWElement to a string
 
 This will convert the LWElement to a HTMLElement
 
+### lw.default: LightWrite
+
 ## LWElement
 
 ### [key: string]: (value?: string): this
 
 This will set the attribute [ key ] to value
+If no parameter is passed it will remove that attribute
+
+### [key: string]: (strings: string[], ...rest: any[]): this
+
+This will set the attribute [ key ] to value
+If no parameter is passed it will remove that attribute
+
+**This is only supposed to be used with [Tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates)**
 
 ### LWElement(content: LWValue[]): this
 
@@ -65,5 +75,11 @@ This will add multiple elements as a child.
 ### LWElement(...content: LWValue[]): this
 
 This will add multiple elements as a child.
+
+### LWElement(strings: string[], ...rest: any[]): this
+
+This will add one Element as a child
+
+**This is only supposed to be used with [Tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates)**
 
 ## LWValue = TextType | HTMLType | string | HTMLElement | LWElement;

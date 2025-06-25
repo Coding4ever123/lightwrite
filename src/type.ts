@@ -36,7 +36,7 @@ export interface LWElement {
      *
      * Returns this to allow for function chaining.
      *
-     * Supports both template string and direct value usage.
+     * Supports both Tagged templates and direct value usage.
      *
      * @example
      * lw.elements.div.class`example`()
@@ -62,7 +62,7 @@ export interface LWElement {
     /**
      * This will add the value as a child.
      *
-     * **This is only supposed to be used with template strings**
+     * **This is only supposed to be used with Tagged templates**
      * @since v1.1.0
      */
     (strings: string[], ...rest: any[]): this;
